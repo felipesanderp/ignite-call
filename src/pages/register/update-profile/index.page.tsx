@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Heading, MultiStep, Text, TextArea } from '@ignite-ui/react'
+<<<<<<< HEAD
 import { GetServerSideProps } from 'next'
 import { getServerSession } from 'next-auth'
 import { useSession } from 'next-auth/react'
@@ -9,6 +10,13 @@ import { z } from 'zod'
 import { buildNextAuthOptions } from '../../api/auth/[...nextauth].api'
 import { Container, Header } from '../styles'
 import { FormAnnotation, ProfileBox } from './styles'
+=======
+import { ArrowRight } from 'phosphor-react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { ProfileBox, FormAnnotation } from './styles'
+import { Container, Header } from '../styles'
+>>>>>>> 53ff53e4a9aace6114e6d4b5c146fd0b8dc58bc6
 
 const updateProfileSchema = z.object({
   bio: z.string(),
@@ -25,10 +33,13 @@ export default function UpdateProfile() {
     resolver: zodResolver(updateProfileSchema),
   })
 
+<<<<<<< HEAD
   const session = useSession()
 
   console.log(session)
 
+=======
+>>>>>>> 53ff53e4a9aace6114e6d4b5c146fd0b8dc58bc6
   async function handleUpdateProfile(data: UpdateProfileData) {}
 
   return (
@@ -45,11 +56,19 @@ export default function UpdateProfile() {
 
       <ProfileBox as="form" onSubmit={handleSubmit(handleUpdateProfile)}>
         <label>
+<<<<<<< HEAD
           <Text>Foto de perfil</Text>
         </label>
 
         <label>
           <Text size="sm">Sobre você</Text>
+=======
+          <Text size="sm">Foto de Perfil</Text>
+        </label>
+
+        <label>
+          <Text size="sm">Sobre Você</Text>
+>>>>>>> 53ff53e4a9aace6114e6d4b5c146fd0b8dc58bc6
           <TextArea {...register('bio')} />
           <FormAnnotation size="sm">
             Fale um pouco sobre você. Isto será exibido em sua página pessoal.
@@ -64,6 +83,7 @@ export default function UpdateProfile() {
     </Container>
   )
 }
+<<<<<<< HEAD
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getServerSession(
@@ -78,3 +98,5 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     },
   }
 }
+=======
+>>>>>>> 53ff53e4a9aace6114e6d4b5c146fd0b8dc58bc6
