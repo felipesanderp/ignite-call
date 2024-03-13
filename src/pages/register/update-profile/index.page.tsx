@@ -1,22 +1,23 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Heading, MultiStep, Text, TextArea } from '@ignite-ui/react'
-<<<<<<< HEAD
+import {
+  Avatar,
+  Button,
+  Heading,
+  MultiStep,
+  Text,
+  TextArea,
+} from '@ignite-ui/react'
 import { GetServerSideProps } from 'next'
+import { useRouter } from 'next/router'
 import { getServerSession } from 'next-auth'
 import { useSession } from 'next-auth/react'
 import { ArrowRight } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { api } from '../../../lib/axios'
 import { buildNextAuthOptions } from '../../api/auth/[...nextauth].api'
 import { Container, Header } from '../styles'
 import { FormAnnotation, ProfileBox } from './styles'
-=======
-import { ArrowRight } from 'phosphor-react'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { ProfileBox, FormAnnotation } from './styles'
-import { Container, Header } from '../styles'
->>>>>>> 53ff53e4a9aace6114e6d4b5c146fd0b8dc58bc6
 
 const updateProfileSchema = z.object({
   bio: z.string(),
@@ -33,14 +34,16 @@ export default function UpdateProfile() {
     resolver: zodResolver(updateProfileSchema),
   })
 
-<<<<<<< HEAD
   const session = useSession()
+  const router = useRouter()
 
-  console.log(session)
+  async function handleUpdateProfile(data: UpdateProfileData) {
+    await api.put('/users/profile', {
+      bio: data.bio,
+    })
 
-=======
->>>>>>> 53ff53e4a9aace6114e6d4b5c146fd0b8dc58bc6
-  async function handleUpdateProfile(data: UpdateProfileData) {}
+    await router.push(`/schedule/${session.data?.user.username}`)
+  }
 
   return (
     <Container>
@@ -51,24 +54,21 @@ export default function UpdateProfile() {
           editar essas informações depois.
         </Text>
 
-        <MultiStep size={4} currentStep={1} />
+        <MultiStep size={4} currentStep={4} />
       </Header>
 
       <ProfileBox as="form" onSubmit={handleSubmit(handleUpdateProfile)}>
         <label>
-<<<<<<< HEAD
           <Text>Foto de perfil</Text>
+          <Avatar
+            src={session.data?.user.avatar_url}
+            referrerPolicy="no-referrer"
+            alt={session.data?.user.name}
+          />
         </label>
 
         <label>
           <Text size="sm">Sobre você</Text>
-=======
-          <Text size="sm">Foto de Perfil</Text>
-        </label>
-
-        <label>
-          <Text size="sm">Sobre Você</Text>
->>>>>>> 53ff53e4a9aace6114e6d4b5c146fd0b8dc58bc6
           <TextArea {...register('bio')} />
           <FormAnnotation size="sm">
             Fale um pouco sobre você. Isto será exibido em sua página pessoal.
@@ -83,7 +83,6 @@ export default function UpdateProfile() {
     </Container>
   )
 }
-<<<<<<< HEAD
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getServerSession(
@@ -98,5 +97,3 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     },
   }
 }
-=======
->>>>>>> 53ff53e4a9aace6114e6d4b5c146fd0b8dc58bc6
